@@ -1,9 +1,8 @@
 package com.pooii.api.controllers;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,56 +16,53 @@ import com.pooii.api.entities.Persona;
 import com.pooii.api.service.PersonaService;
 
 @RestController
-@RequestMapping(path = "api/v1/personas")
+@RequestMapping(path = "api/v1")
 public class PersonaController {
 
-	@Autowired 
+	@Autowired
+	@Qualifier("personaService")
 	private PersonaService personaService;
-	
-	//METODO GET TODAS LAS PERSONAS
-	@GetMapping
-	public List<Persona> getAll(){
+
+	// METODO POST
+	@PostMapping("/persona")
+	public boolean save(@RequestBody Persona persona) {
+		return personaService.save(persona);
+	}
+
+	// METODO PUT
+	@PutMapping("/persona")
+	public boolean update(@RequestBody @Validated Persona persona) {
+		return personaService.update(persona);
+	}
+
+	// METODO DELETE
+	@DeleteMapping("/persona/{id}")
+	public boolean saveUpdate(@PathVariable("id") int id) {
+		return personaService.delete(id);
+	}
+
+	// METODO GET TODAS LAS PERSONAS
+	@GetMapping("/personas")
+	public List<Persona> getAll() {
 		return personaService.getPersonas();
 	}
-	
-	//METODO GET PERSONA POR ID
-	@GetMapping("/id/{id}")
-	public Optional<Persona> getBId(@PathVariable("id") Long id){
+
+	// METODO GET PERSONA POR ID
+	@GetMapping("/persona/id/{id}")
+	public Persona getBId(@PathVariable("id") int id) {
 		return personaService.getPersona(id);
 	}
-	
-	//METODO GET PERSONA POR NOMBRE
-	@GetMapping("/nombre/{PNombre}")
-	public List<Persona> getByNombre(@PathVariable("PNombre")String PNombre){
+
+	// METODO GET PERSONA POR NOMBRE
+	@GetMapping("/persona/nombre/{PNombre}")
+	public List<Persona> getByNombre(@PathVariable("PNombre") String PNombre) {
 		return personaService.getNom(PNombre);
 	}
-	
-	//METODO GET PERSONA POR EDAD
-	@GetMapping("/edad/{Edad}")
-	public List<Persona> getByEdad(@PathVariable("Edad")int Edad){
+
+	// METODO GET PERSONA POR EDAD
+	@GetMapping("/persona/edad/{Edad}")
+	public List<Persona> getByEdad(@PathVariable("Edad") int Edad) {
 		return personaService.getEdad(Edad);
 	}
-	
-	//METODO PUT
-	@PutMapping
-	public Persona update(@RequestBody @Validated Persona persona){
-		personaService.saveOrUpdate(persona);
-		return persona;
-	}
-	
-	//METODO POST
-	@PostMapping
-	public Persona save(@RequestBody Persona persona){
-		personaService.saveOrUpdate(persona);
-		return persona;
-	}
-	
-	//METODO DELETE
-	@DeleteMapping("/id/{id}")
-	public void saveUpdate(@PathVariable("id") Long id){
-		personaService.delete(id);
-	}
-	
-	
-	
+
 }

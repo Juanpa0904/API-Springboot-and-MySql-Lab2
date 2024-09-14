@@ -1,5 +1,8 @@
 package com.pooii.api.entities;
 
+import java.io.Serializable;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -8,30 +11,37 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="personas")
-public class Persona {
+public class Persona implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@Column(name = "id")
+	private int id;
+	
+	@Column(name = "pnombre")
 	private String PNombre;
+	
+	@Column(name = "edad")
 	private int edad; 
 	
 	public Persona() {
 		
 	}
 
-	public Persona(Long id, String pNombre, int edadd) {
+	public Persona(int id, String pNombre, int edadd) {
 		super();
 		this.id = id;
 		PNombre = pNombre;
 		edad = edadd;
 	}
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -50,7 +60,4 @@ public class Persona {
 	public void setEdad(int edadd) {
 		edad = edadd;
 	}
-	
-	
-	
 }

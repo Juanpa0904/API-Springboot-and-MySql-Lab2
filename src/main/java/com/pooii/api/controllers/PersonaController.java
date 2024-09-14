@@ -59,8 +59,8 @@ public class PersonaController {
 		return personaService.getNom(PNombre);
 	}
 
-	// METODO GET PERSONA POR EDAD
 	@GetMapping("/persona/edad/{Edad}")
+	// METODO GET PERSONA POR EDAD
 	public List<Persona> getByEdad(@PathVariable("Edad") int Edad) {
 		return personaService.getEdad(Edad);
 	}

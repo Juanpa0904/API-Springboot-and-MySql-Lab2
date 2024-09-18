@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
+
 @SpringBootApplication(exclude = {UserDetailsServiceAutoConfiguration.class})
 public class ProyectoPooiiApiApplication extends SpringBootServletInitializer{
 
